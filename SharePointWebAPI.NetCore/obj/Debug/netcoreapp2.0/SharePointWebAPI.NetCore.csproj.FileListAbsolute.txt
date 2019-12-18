@@ -32,3 +32,4 @@
 /Users/jonas.christensen/Documents/Microservices/sharepoint/SharePointWebAPI.NetCore/bin/Debug/netcoreapp2.0/SharePointWebAPI.NetCore.pdb
 /Users/jonas.christensen/Documents/Microservices/sharepoint/SharePointWebAPI.NetCore/bin/Debug/netcoreapp2.0/SharePointPnP.Client.dll
 /Users/jonas.christensen/Documents/Microservices/sharepoint/SharePointWebAPI.NetCore/obj/Debug/netcoreapp2.0/SharePointWebAPI.NetCore.csproj.CopyComplete
+/Users/jonas.christensen/Documents/Microservices/sharepoint/SharePointWebAPI.NetCore/bin/Debug/netcoreapp2.0/helpers.json

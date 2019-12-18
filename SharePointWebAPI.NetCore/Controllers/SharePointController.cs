@@ -77,11 +77,13 @@ namespace WebAPI.NetCore.Controllers
         /// <response code="204">Returns success with No-content result</response>
         /// <response code="500">If the input parameter is null or empty</response>
         [HttpDelete("{url}")]
+        [Produces("application/json")]
+        [Consumes("application/json")]
         [ProducesResponseType((int)HttpStatusCode.NotFound)]
         [ProducesResponseType((int)HttpStatusCode.RequestTimeout)]
         [ProducesResponseType((int)HttpStatusCode.NoContent)]
         [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
-        public async Task<IActionResult> DeleteSite(string url)
+        public async Task<IActionResult> DeleteSite([FromBody] string url)
         {
             // Starting with ClientContext, the constructor requires a URL to the 
             // server running SharePoint.
@@ -126,11 +128,13 @@ namespace WebAPI.NetCore.Controllers
         /// <response code="404">Returns resource not found if the ID of the new site is empty</response>
         /// <response code="500">If the input parameter is null or empty</response>
         [HttpPost]
+        [Produces("application/json")]
+        [Consumes("application/json")]
         [ProducesResponseType((int)HttpStatusCode.NotFound)]
         [ProducesResponseType((int)HttpStatusCode.RequestTimeout)]
         [ProducesResponseType((int)HttpStatusCode.Created)]
         [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
-        public async Task<IActionResult> NewSite(SharePointParam param)
+        public async Task<IActionResult> NewSite([FromBody] SharePointParam param)
         {
             try{
             // Starting with ClientContext, the constructor requires a URL to the 
@@ -159,6 +163,8 @@ namespace WebAPI.NetCore.Controllers
 #if false
         This section is commented out due to the fact that current Microsoft SharePoint Cliet component SDK does NOT support tennat administration for .Net Core
         [HttpGet]
+        [Produces("application/json")]
+        [Consumes("application/json")]
         public List<SharePointItem> SiteCollections()
         {
             List<SharePointItem> results = new List<SharePointItem>();
@@ -199,6 +205,8 @@ namespace WebAPI.NetCore.Controllers
         /// <response code="200">Returns success with the list of sites</response>
         /// <response code="500">Exception thrown in SharePoint server</response>
         [HttpGet]
+        [Produces("application/json")]
+        [Consumes("application/json")]
         [ProducesResponseType(typeof(List<SharePointParam>), (int)HttpStatusCode.OK)]
         [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
         public async Task<IActionResult> Sites()
@@ -251,9 +259,11 @@ namespace WebAPI.NetCore.Controllers
         /// <response code="200">Returns success with the list of template information</response>
         /// <response code="500">Exception thrown in SharePoint server</response>
         [HttpGet]
+        [Produces("application/json")]
+        [Consumes("application/json")]
         [ProducesResponseType(typeof(List<SharePointTemplate>), (int)HttpStatusCode.OK)]
         [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
-        public async Task<IActionResult> Templates(string url)
+        public async Task<IActionResult> Templates([FromBody] string url)
         {
             List<SharePointTemplate> results = new List<SharePointTemplate>();
             try
