@@ -160,6 +160,59 @@ namespace WebAPI.NetCore.Controllers
                 return StatusCode(StatusCodes.Status500InternalServerError, ex);
             }
         }
+        /// <summary>
+        /// Create a new doc
+        /// </summary>
+        /// <remarks>
+        /// Sample request:
+        ///
+        ///     POST /api/sharepoint/newdoc
+        ///     {     
+        ///         "SiteCollectionURL": "https://....com/sites/(specific site)",
+        ///         "Title": "Test Team 1",
+        ///         "URL": "TestTeam1",
+        ///         "Description": "Test Team 1 description",
+        ///         "Template": "STS#0"  
+        ///     }
+        /// </remarks>
+        /// <param name="param">Site creation parameters</param>
+        /// <returns></returns>
+        /// <response code="201">Returns success with the new site title</response>
+        /// <response code="404">Returns resource not found if the ID of the new site is empty</response>
+        /// <response code="500">If the input parameter is null or empty</response>
+        [HttpPost]
+        [Produces("application/json")]
+        [Consumes("application/json")]
+        [ProducesResponseType((int)HttpStatusCode.NotFound)]
+        [ProducesResponseType((int)HttpStatusCode.RequestTimeout)]
+        [ProducesResponseType((int)HttpStatusCode.Created)]
+        [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
+        public async Task<IActionResult> NewDoc([FromBody] SharePointDoc param)
+        {
+            try{
+            // Starting with ClientContext, the constructor requires a URL to the 
+            // server running SharePoint.
+            //string teamURL = @"https://dddevops.sharepoint.com";
+            WebCreationInformation creation = new WebCreationInformation();
+            //context.Credentials = new NetworkCredential("khteh", "", "dddevops.onmicrosoft.com");
+            creation.Url = param.URL;
+            creation.Title = param.Title;
+            creation.Description = param.Description;
+            creation.UseSamePermissionsAsParentSite = true;
+            creation.WebTemplate = param.Template;//"STS#0";
+            creation.Language = 1033;
+            Web newWeb = cc.Web.Webs.Add(creation);
+            // Retrieve the new web information. 
+            cc.Load(newWeb, w => w.Id);
+            //context.Load(newWeb);
+            await cc.ExecuteQueryAsync();
+            return StatusCode(newWeb.Id != Guid.Empty ? StatusCodes.Status201Created : StatusCodes.Status404NotFound);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, ex);
+            }
+        }
 #if false
         This section is commented out due to the fact that current Microsoft SharePoint Cliet component SDK does NOT support tennat administration for .Net Core
         [HttpGet]

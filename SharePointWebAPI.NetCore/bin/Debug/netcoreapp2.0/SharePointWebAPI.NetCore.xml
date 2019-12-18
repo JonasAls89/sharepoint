@@ -57,6 +57,28 @@
              <response code="404">Returns resource not found if the ID of the new site is empty</response>
              <response code="500">If the input parameter is null or empty</response>
         </member>
+        <member name="M:WebAPI.NetCore.Controllers.SharePointController.NewDoc(WebAPI.NetCore.Models.SharePointDoc)">
+             <summary>
+             Create a new site
+             </summary>
+             <remarks>
+             Sample request:
+            
+                 POST /api/sharepoint/newdoc
+                 {     
+                     "SiteCollectionURL": "https://....com/sites/(specific site)",
+                     "Title": "Test Team 1",
+                     "URL": "TestTeam1",
+                     "Description": "Test Team 1 description",
+                     "Template": "STS#0"  
+                 }
+             </remarks>
+             <param name="param">Site creation parameters</param>
+             <returns></returns>
+             <response code="201">Returns success with the new site title</response>
+             <response code="404">Returns resource not found if the ID of the new site is empty</response>
+             <response code="500">If the input parameter is null or empty</response>
+        </member>
         <member name="M:WebAPI.NetCore.Controllers.SharePointController.Sites">
              <summary>
              Retrieve all the sites of a specified site collection
@@ -90,6 +112,46 @@
              <returns>List of template information</returns>
              <response code="200">Returns success with the list of template information</response>
              <response code="500">Exception thrown in SharePoint server</response>
+        </member>
+        <member name="T:WebAPI.NetCore.Models.SharePointDoc">
+            <summary>
+            SharePoint controller action input parameter
+            </summary>
+        </member>
+        <member name="P:WebAPI.NetCore.Models.SharePointDoc.SiteCollectionURL">
+            <summary>
+            Site collection URL
+            </summary>
+        </member>
+        <member name="P:WebAPI.NetCore.Models.SharePointDoc.Title">
+            <summary>
+            Title of site or site collection
+            </summary>
+        </member>
+        <member name="P:WebAPI.NetCore.Models.SharePointDoc.TenantAdminURL">
+            <summary>
+            Tenant admin URL
+            </summary>
+        </member>
+        <member name="P:WebAPI.NetCore.Models.SharePointDoc.URL">
+            <summary>
+            Depending on use case, this could be just URL section instead of absolute URL.
+            </summary>
+        </member>
+        <member name="P:WebAPI.NetCore.Models.SharePointDoc.Template">
+            <summary>
+            Template used by the site collection
+            </summary>
+        </member>
+        <member name="P:WebAPI.NetCore.Models.SharePointDoc.Description">
+            <summary>
+            Description of site collection or site
+            </summary>
+        </member>
+        <member name="P:WebAPI.NetCore.Models.SharePointDoc.Owner">
+            <summary>
+            Owner of site / site collection
+            </summary>
         </member>
         <member name="T:WebAPI.NetCore.Models.SharePointParam">
             <summary>
